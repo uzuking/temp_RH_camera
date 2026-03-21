@@ -1,17 +1,35 @@
 #include <Arduino.h>
-#include "credentials.h"
+#include <DHT.h>
 
 // Seedling Monitor - ESP32 Firmware
 // See docs/design.md for full system design.
-// Development step 1 (preparation) complete.
-// Next: step 2 (DHT22 test)
+// Development step 2: DHT22 単体テスト
+
+#define DHT_PIN 25
+#define DHT_TYPE DHT22
+#define READ_INTERVAL 5000  // 5秒間隔（テスト用）
+
+DHT dht(DHT_PIN, DHT_TYPE);
+int consecutiveSuccess = 0;
 
 void setup() {
   Serial.begin(115200);
   delay(1000);
-  Serial.println("Seedling Monitor - starting...");
+  Serial.println("Seedling Monitor - DHT22 test");
+  dht.begin();
 }
 
 void loop() {
-  // TODO: implement per development steps in docs/design.md
+  float temperature = dht.readTemperature();
+  float humidity = dht.readHumidity();
+
+  if (isnan(temperature) || isnan(humidity)) {
+    Serial.printf("ERROR: DHT22 read failed (consecutive success was %d)\n", consecutiveSuccess);
+    consecutiveSuccess = 0;
+  } else {
+    consecutiveSuccess++;
+    Serial.printf("[%d] Temperature: %.1f°C  Humidity: %.1f%%\n", consecutiveSuccess, temperature, humidity);
+  }
+
+  delay(READ_INTERVAL);
 }
