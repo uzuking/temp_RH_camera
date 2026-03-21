@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "credentials.h"
 
 // Seedling Monitor - ESP32 Firmware
 // See docs/design.md for full system design.
