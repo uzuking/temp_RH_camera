@@ -8,9 +8,9 @@
 // See docs/design.md for full system design.
 // Development step 9: Full integration with periodic sending
 
-// --- Intervals (change for testing) ---
-#define SENSOR_INTERVAL_MS  30000    // 30秒（テスト用。本番: 600000 = 10分）
-#define IMAGE_INTERVAL_MS   120000   // 2分（テスト用。本番: 3600000 = 1時間）
+// --- Intervals ---
+#define SENSOR_INTERVAL_MS  600000   // 10分
+#define IMAGE_INTERVAL_MS   3600000  // 1時間
 
 // DHT22
 #define DHT_PIN 25
