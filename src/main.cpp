@@ -381,7 +381,8 @@ void setup() {
   // Initial tasks
   Serial.println("\n--- Initial send ---");
   doSensorTask();
-  if (cameraReady) doImageTask();
+  // カメラは初回スキップ（ブートループ防止）、定期タスクで実行
+  Serial.println("  Camera: deferred to periodic task");
 
   Serial.printf("Free heap after initial tasks: %u bytes\n", ESP.getFreeHeap());
 
